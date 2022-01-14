@@ -64,10 +64,10 @@ def write_annotation(im_filename, ann_xmin, ann_xmax, ann_ymin, ann_ymax, ann_fi
 
     node_size = SubElement(node_root, 'size')
     node_width = SubElement(node_size, 'width')
-    node_width.text = '640'
+    node_width.text = args["windowsize"][0]
 
     node_height = SubElement(node_size, 'height')
-    node_height.text = '640'
+    node_height.text = args["windowsize"][1]
 
     node_depth = SubElement(node_size, 'depth')
     node_depth.text = '3'
