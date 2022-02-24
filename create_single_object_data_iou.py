@@ -2,17 +2,27 @@ import os
 from lxml.etree import Element, SubElement
 import xml.etree.ElementTree as ET
 import cv2
+import argparse
 
-image_filepath = 'D:/YOLOX/Original_dataset/images/'
-bb_filepath = 'D:/YOLOX/Original_dataset/ann/'
+ap = argparse.ArgumentParser()
+ap.add_argument("-i", "--image", required=True, help="Path to the image folder.")
+ap.add_argument("-a", "--annotation", required=True, help="Path to the annotation folder.")
+ap.add_argument("-s", "--savepath", required=True, help="Path to the save the images and annotations.")
+ap.add_argument("-w", "--windowsize", nargs='+', default=(640, 640), help="The size of the sliding window.")
+ap.add_argument("-r", "--random", default=10, help="The sampling number.")
+args = vars(ap.parse_args())
+
+image_filepath = args["image"]
+bb_filepath = args["annotation"]
+savepath = args["savepath"]
 image_filepath_list = os.listdir(image_filepath)
 bb_filepath_list = os.listdir(bb_filepath)
-savepath = 'D:/YOLOX/IOU_dataset'
-(winW, winH) = (640, 640)
+(winW, winH) = args["windowsize"]
 
 
 # To make the annotation file looks pretty.
 # Reference https://vae-0118.github.io/2017/11/06/Python%E4%B8%ADXML%E7%9A%84%E8%AF%BB%E5%86%99%E6%80%BB%E7%BB%93/
+
 
 def __indent(elem, level=0):
     i = "\n" + level * "\t"
